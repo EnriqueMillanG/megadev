@@ -61,8 +61,9 @@
 <h2>How this was found</h2>
 <ul><li>The export has duplicate rows where its pages overlap; counted once by id.</li><li>Each report is placed by its <strong>tenant</strong> (locale and booking form) and channel, with <code>causeOf</code> in <code>src/lib/kb/causes.ts</code>. Intake's tag is a guess from the reporter's browser and often disagrees with the cause (see &quot;tagged as&quot; above).</li><li>Every dated report body was checked: all are an exact day↔month swap, except the one-day moves.</li><li><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> merges on subject alone. Subjects here are shared across all three problems, so subject-only merging cannot keep them apart.</li></ul>
 <h2>Status</h2>
-<p>Split done. Each problem is filed as its own ticket with its count (linked in the table above), and this page closes them: the kb now says what #4471 holds.</p>
-<p class="stamp">desk ref <b>DR-6WYR-7GFN</b></p>
+<p>Engineering closed #4471 on 5 October: <strong>parser</strong> is fixed (<code>fix(dates): parse dd/mm for eu locales</code>), <strong>hint</strong> is won't fix (the booking-v3 form is retired). The parser fix does not move a date by one day, so the <strong>one-day move</strong> reports stay open on their own ticket.</p>
+<p>Written by Enrique Millán, with Claude.</p>
+<p class="stamp">desk ref <b>DR-DS9Z-ZMKP</b></p>
   </main>
   <footer>Pages are written by people. Tables and charts are built from data at render time.</footer>
 </div>

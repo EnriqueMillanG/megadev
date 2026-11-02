@@ -4,7 +4,7 @@ title: '#4471 · what it shows: three problems, not one'
 owner: support desk
 status: closed
 reviewed: 2026-11-01
-signature: 'Enrique Millán, with Claude'
+signature: 'v1.eyJzdWIiOiIxMDY5IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTM1OTA0ODYsImV4cCI6MTc5MzY3Njg4Nn0.T2PaHeeqqzhC_TlmHQFvBgcHc-tsTySMR05BCkT7IeY'
 ---
 
 <script>
@@ -60,7 +60,10 @@ counts them apart.
 
 ## Status
 
-Split done. Each problem is filed as its own ticket with its count (linked in the table above), and
-this page closes them: the kb now says what #4471 holds.
+Engineering closed #4471 on 5 October: **parser** is fixed (`fix(dates): parse dd/mm for eu locales`),
+**hint** is won't fix (the booking-v3 form is retired). The parser fix does not move a date by one
+day, so the **one-day move** reports stay open on their own ticket.
+
+Written by Enrique Millán, with Claude.
 
 <RenderStamp {signature} />
