@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · what it shows: three problems, not one'
 owner: support desk
-status: open
+status: closed
 reviewed: 2026-11-01
 signature: 'Enrique Millán, with Claude'
 ---
@@ -57,5 +57,10 @@ counts them apart.
 - Every dated report body was checked: all are an exact day↔month swap, except the one-day moves.
 - [Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on subject alone. Subjects here are
   shared across all three problems, so subject-only merging cannot keep them apart.
+
+## Status
+
+Split done. Each problem is filed as its own ticket with its count (linked in the table above), and
+this page closes them: the kb now says what #4471 holds.
 
 <RenderStamp {signature} />

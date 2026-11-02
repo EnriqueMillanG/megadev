@@ -44,7 +44,7 @@
     <h1>#4471 · what it shows: three problems, not one</h1>
     <p class="meta">
       <span>owner <b>support desk</b></span>
-      <span class="status open">open</span>
+      <span class="status closed">closed</span>
       <span class="">reviewed 2026-11-01 · 1 days ago</span>
     </p>
   </header>
@@ -60,6 +60,8 @@
 <p>The table files the one-day moves under <code>parser</code> by tenant and footnotes them; the list above counts them apart.</p>
 <h2>How this was found</h2>
 <ul><li>The export has duplicate rows where its pages overlap; counted once by id.</li><li>Each report is placed by its <strong>tenant</strong> (locale and booking form) and channel, with <code>causeOf</code> in <code>src/lib/kb/causes.ts</code>. Intake's tag is a guess from the reporter's browser and often disagrees with the cause (see &quot;tagged as&quot; above).</li><li>Every dated report body was checked: all are an exact day↔month swap, except the one-day moves.</li><li><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> merges on subject alone. Subjects here are shared across all three problems, so subject-only merging cannot keep them apart.</li></ul>
+<h2>Status</h2>
+<p>Split done. Each problem is filed as its own ticket with its count (linked in the table above), and this page closes them: the kb now says what #4471 holds.</p>
 <p class="stamp">desk ref <b>DR-6WYR-7GFN</b></p>
   </main>
   <footer>Pages are written by people. Tables and charts are built from data at render time.</footer>
