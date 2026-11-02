@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>#4471 · what it shows: three problems, not one · support kb</title>
+<style>
+  :root {
+    --bg: #fbfaf7; --fg: #1d1d1b; --muted: #6b6a66; --line: #e3e0d8;
+    --accent: #2f6f5e; --warn: #b4501f; --warn-bg: #fbeee6; --note-bg: #eef5f2;
+    --mono: ui-monospace, 'Cascadia Code', Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #171716; --fg: #ecebe6; --muted: #9c9a93; --line: #34332f;
+      --accent: #6fbfa6; --warn: #f0905d; --warn-bg: #3a2418; --note-bg: #1d2c27;
+    }
+  }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, sans-serif; }
+  .kb table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.92rem; }
+  .kb th, .kb td { border-bottom: 1px solid var(--line); padding: 0.35rem 0.5rem; text-align: left; }
+  .kb code { font-family: var(--mono); font-size: 0.88em; }
+  .kb a { color: var(--accent); }
+  .kb { max-width: 760px; margin: 0 auto; padding: 2rem 16px 4rem; }
+  .crumb { font: 0.8rem var(--mono); text-decoration: none; color: var(--muted); }
+  h1 { margin: 0.25rem 0 0.5rem; line-height: 1.2; }
+  .meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; color: var(--muted); font-size: 0.85rem; margin: 0; }
+  .status { border: 1px solid var(--line); border-radius: 99px; padding: 0 0.6rem; }
+  .stale { color: var(--warn); font-weight: 600; }
+  .banner { background: var(--warn-bg); color: var(--warn); padding: 0.6rem 1rem; border-radius: 6px; }
+  footer { margin-top: 3rem; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+
+  .sum { font-size: 1.1rem; } .tags, .note { color: var(--muted); font-size: 0.85em; }
+  .wrong td { background: var(--warn-bg); } .wrong td:last-child { color: var(--warn); font-weight: 600; }
+  aside { border-left: 4px solid var(--accent); padding: 0.5rem 1rem; margin: 1rem 0; background: var(--note-bg); }
+  aside.warn { border-color: var(--warn); background: var(--warn-bg); }
+  .stamp { margin: 2rem 0 0; font: 0.85rem var(--mono); color: var(--muted); } .stamp b { color: var(--accent); letter-spacing: 0.04em; }
+  .missing { color: var(--warn); } table { display: block; overflow-x: auto; }</style>
+</head>
+<body>
+<div class="kb">
+  <header>
+    <a class="crumb" href="/kb">support desk · kb</a>
+    <h1>#4471 · what it shows: three problems, not one</h1>
+    <p class="meta">
+      <span>owner <b>support desk</b></span>
+      <span class="status open">open</span>
+      <span class="">reviewed 2026-11-01 · 1 days ago</span>
+    </p>
+  </header>
+  
+  <main>
+<p>The <a href="/kb/incidents/4471">#4471 page</a> says &quot;one issue, one fix queued&quot;. Its own table says otherwise. This page splits #4471 into the problems it holds, one ticket each.</p>
+<aside class="warn">Not one issue. #4471 holds three problems with three different fixes. Fixing the parser alone leaves the other two open.</aside>
+<h2>The problems</h2>
+<p class="sum"><strong>412</strong> reports in #4471 · <strong>3</strong> problems</p><table><thead><tr><th>problem</th><th>reports</th><th>ticket</th></tr></thead><tbody><tr><td><code>parser</code></td><td>374</td><td><a href="https://github.com/EnriqueMillanG/megadev/issues/1">megadev#1</a></td></tr><tr><td><code>hint</code></td><td>33</td><td><a href="https://github.com/EnriqueMillanG/megadev/issues/2">megadev#2</a></td></tr><tr><td><code>one-day move</code></td><td>5</td><td><a href="https://github.com/EnriqueMillanG/megadev/issues/3">megadev#3</a></td></tr></tbody></table>
+<ul><li><strong>parser</strong> — the shared parser reads dates month first; every tenant here writes the day first, so day and month swap. Fix: parse in the tenant's locale.</li><li><strong>hint</strong> — booking-v3's form prints <code>MM/DD/YYYY</code> under the date field. People type month first, as told, and the form reads day first. Same symptom, different bug: the hint, not the parser. Fix: a hint (or picker) that follows the tenant's locale.</li><li><strong>one-day move</strong> — the reports the desk already noted in <code>desk-notes.json</code>. A booking moves by one day (&quot;12 May → 11 May&quot;, &quot;Lisbon got Tuesday, Toronto got Monday&quot;). A day↔month swap cannot do that, so they are counted on their own. Looks like a time-zone shift.</li></ul>
+<h2>By cause, as the kb computes it</h2>
+<p class="sum"><strong>412</strong> reports merged into #4471 · <strong>2</strong> causes</p><table><thead><tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th></th></tr></thead><tbody><tr class=""><td><code>parser</code></td><td>379</td><td class="tags">parser ×356 · hint ×23</td><td>11</td><td>2026-04-01 → 2026-10-04</td><td>#4471</td></tr><tr class="wrong"><td><code>hint</code></td><td>33</td><td class="tags">hint ×18 · parser ×15</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>not this ticket — no ticket of its own</td></tr></tbody></table><p class="note">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
+<p>The table files the one-day moves under <code>parser</code> by tenant and footnotes them; the list above counts them apart.</p>
+<h2>How this was found</h2>
+<ul><li>The export has duplicate rows where its pages overlap; counted once by id.</li><li>Each report is placed by its <strong>tenant</strong> (locale and booking form) and channel, with <code>causeOf</code> in <code>src/lib/kb/causes.ts</code>. Intake's tag is a guess from the reporter's browser and often disagrees with the cause (see &quot;tagged as&quot; above).</li><li>Every dated report body was checked: all are an exact day↔month swap, except the one-day moves.</li><li><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> merges on subject alone. Subjects here are shared across all three problems, so subject-only merging cannot keep them apart.</li></ul>
+<p class="stamp">desk ref <b>DR-6WYR-7GFN</b></p>
+  </main>
+  <footer>Pages are written by people. Tables and charts are built from data at render time.</footer>
+</div>
+</body>
+</html>

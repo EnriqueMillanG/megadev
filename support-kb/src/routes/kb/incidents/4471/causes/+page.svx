@@ -1,0 +1,61 @@
+---
+layout: runbook
+title: '#4471 · what it shows: three problems, not one'
+owner: support desk
+status: open
+reviewed: 2026-11-01
+signature: 'Enrique Millán, with Claude'
+---
+
+<script>
+  import SplitCounts from '#lib/kb/SplitCounts.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const issues = {
+    parser: 'https://github.com/EnriqueMillanG/megadev/issues/1',
+    hint: 'https://github.com/EnriqueMillanG/megadev/issues/2',
+    'one-day move': 'https://github.com/EnriqueMillanG/megadev/issues/3',
+  };
+</script>
+
+The [#4471 page](/kb/incidents/4471) says "one issue, one fix queued". Its own table says
+otherwise. This page splits #4471 into the problems it holds, one ticket each.
+
+<Callout kind="warn">
+Not one issue. #4471 holds three problems with three different fixes. Fixing the parser alone
+leaves the other two open.
+</Callout>
+
+## The problems
+
+<SplitCounts ticket={4471} {issues} />
+
+- **parser** — the shared parser reads dates month first; every tenant here writes the day first,
+  so day and month swap. Fix: parse in the tenant's locale.
+- **hint** — booking-v3's form prints `MM/DD/YYYY` under the date field. People type month first,
+  as told, and the form reads day first. Same symptom, different bug: the hint, not the parser.
+  Fix: a hint (or picker) that follows the tenant's locale.
+- **one-day move** — the reports the desk already noted in `desk-notes.json`. A booking moves by one
+  day ("12 May → 11 May", "Lisbon got Tuesday, Toronto got Monday"). A day↔month swap cannot do
+  that, so they are counted on their own. Looks like a time-zone shift.
+
+## By cause, as the kb computes it
+
+<CauseTable ticket={4471} />
+
+The table files the one-day moves under `parser` by tenant and footnotes them; the list above
+counts them apart.
+
+## How this was found
+
+- The export has duplicate rows where its pages overlap; counted once by id.
+- Each report is placed by its **tenant** (locale and booking form) and channel, with
+  `causeOf` in `src/lib/kb/causes.ts`. Intake's tag is a guess from the reporter's browser and
+  often disagrees with the cause (see "tagged as" above).
+- Every dated report body was checked: all are an exact day↔month swap, except the one-day moves.
+- [Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on subject alone. Subjects here are
+  shared across all three problems, so subject-only merging cannot keep them apart.
+
+<RenderStamp {signature} />
